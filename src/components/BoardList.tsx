@@ -9,6 +9,7 @@ export default function BoardList() {
   const card = useRecoilValue(cardItemState);
   const detailShow = useRecoilValue(detailIdState);
 
+  console.log('card', card);
   const taskFilter = (task: string) => {
     const filteredCard = card.filter(data => data.state === task);
     return filteredCard;

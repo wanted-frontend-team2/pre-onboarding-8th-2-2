@@ -5,6 +5,7 @@ import { detailIdState } from '../recoil/detail';
 import { CardItemType } from '../types';
 import { TASK } from '../util/constants';
 import * as S from './index.style';
+import SearchManager from './SearchManager';
 
 interface Props {
   item: CardItemType;
@@ -74,7 +75,10 @@ export default function BoardDetail({ item }: Props) {
               ))}
             </select>
           </div>
-          <div>담당자 : </div>
+          <div>
+            담당자 :{' '}
+            <SearchManager defaultManager={manager} setValue={setValue} />
+          </div>
           <div>
             내용 :
             <textarea
