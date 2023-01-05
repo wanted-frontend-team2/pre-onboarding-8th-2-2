@@ -16,7 +16,7 @@ export default function BoardList() {
       card.filter(items =>
         items.manager.toLowerCase().includes(filter.toLowerCase()),
       ),
-    [filter],
+    [filter, card],
   );
 
   const taskFilter = (task: string) => {
@@ -45,7 +45,7 @@ export default function BoardList() {
           filteredCard={taskFilter(item.task)}
         />
       ))}
-      {filteredManagerCards.map(
+      {card.map(
         item =>
           item.id === detailShow && <BoardDetail key={item.id} item={item} />,
       )}
