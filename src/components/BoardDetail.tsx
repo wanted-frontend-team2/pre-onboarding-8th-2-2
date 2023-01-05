@@ -30,6 +30,7 @@ export default function BoardDetail({ item }: Props) {
   const handleSubmit = () => {
     const newCard = card.map(e => (e.id === id ? { id, ...value } : e));
     setCard(newCard);
+    setDetailShow('');
   };
 
   if (!id) return <div />;
