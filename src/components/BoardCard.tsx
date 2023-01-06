@@ -9,9 +9,14 @@ import BoardCardItem from './BoardCardItem';
 interface Props {
   taskType: string;
   filteredCard: any;
+  taskIndex: number;
 }
 
-export default function BoardCard({ taskType, filteredCard }: Props) {
+export default function BoardCard({
+  taskType,
+  filteredCard,
+  taskIndex,
+}: Props) {
   const setCard = useSetRecoilState(cardItemState);
   const { handleUpdateList, handleDragging } = useDragAndDrop();
 
@@ -31,7 +36,7 @@ export default function BoardCard({ taskType, filteredCard }: Props) {
 
   const handleDrop = (e: React.DragEvent<HTMLUListElement>) => {
     e.preventDefault();
-    handleUpdateList(e.dataTransfer.getData('data'), taskType);
+    handleUpdateList(e.dataTransfer.getData('data'), taskType, taskIndex);
     handleDragging(false);
   };
 
@@ -64,6 +69,7 @@ export default function BoardCard({ taskType, filteredCard }: Props) {
               <BoardCardItem
                 key={item.id}
                 index={index}
+                taskIndex={taskIndex}
                 item={item}
                 handleDragging={handleDragging}
               />

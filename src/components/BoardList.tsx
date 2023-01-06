@@ -36,9 +36,10 @@ export default function BoardList() {
         placeholder="담당자 검색"
       />
       <div className="flex flex-grow justify-center px-10 pb-5 pt-3 space-x-6">
-        {TASK?.map(item => (
+        {TASK?.map((item, index) => (
           <BoardCard
             key={item.id}
+            taskIndex={index}
             taskType={item.task}
             filteredCard={taskFilter(item.task)}
           />
