@@ -59,7 +59,7 @@ export default function BoardDetail({ item }: Props) {
         date: value.date,
         state: value.state,
         manager: value.manager,
-        content: value.manager,
+        content: value.content,
       });
     setCard(newCard);
 
