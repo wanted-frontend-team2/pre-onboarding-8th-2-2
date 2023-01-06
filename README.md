@@ -2,7 +2,7 @@
 
 > 칸반보드 형태의 이슈 트래킹 서비스입니다. 
 
-[서비스 바로가기](https://pre-onboarding-8th-2-2.netlify.app/, "Kanban Board")
+[서비스 바로가기](https://pre-onboarding-8th-2-2.netlify.app/)
 
 <br>
 
