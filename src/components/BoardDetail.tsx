@@ -155,14 +155,6 @@ export default function BoardDetail({ item }: Props) {
             />
             <div className="flex justify-between">
               <button
-                type="submit"
-                disabled={isRequest}
-                onClick={handleSubmit}
-                className="rounded-lg border border-transparent bg-blue-700 py-2 px-4 ml-1 text-sm font-medium text-white shadow-sm hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300"
-              >
-                Save
-              </button>
-              <button
                 type="button"
                 disabled={isRequest}
                 onClick={() => {
@@ -171,6 +163,14 @@ export default function BoardDetail({ item }: Props) {
                 className="rounded-lg border border-transparent bg-red-600 py-2 px-4 ml-1 text-sm font-medium text-white shadow-sm hover:bg-red-700 focus:outline-none focus:ring-4 focus:ring-red-200"
               >
                 Delete
+              </button>
+              <button
+                type="submit"
+                disabled={isRequest}
+                onClick={handleSubmit}
+                className="rounded-lg border border-transparent bg-blue-700 py-2 px-4 ml-1 text-sm font-medium text-white shadow-sm hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300"
+              >
+                Save
               </button>
             </div>
           </form>
