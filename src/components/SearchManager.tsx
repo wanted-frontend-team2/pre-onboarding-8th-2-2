@@ -68,7 +68,7 @@ export default function SearchManager({ setValue, defaultManager }: Props) {
         }}
         className={`${
           focused ? 'inline' : 'invisible'
-        }  absolute left-0 top-8 w-56 origin-top-right divide-y divide-gray-100 rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none`}
+        }  absolute left-0 top-8 w-56 max-h-40 overflow-y-scroll overflow-x-hidden divide-y divide-gray-100 rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none`}
       >
         {filteredManagers.map(manager => (
           <li
