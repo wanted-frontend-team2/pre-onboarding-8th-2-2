@@ -7,7 +7,7 @@ import { detailIdState } from '../recoil/detail';
 
 interface Props {
   taskType: string;
-  filteredCard: any;
+  filteredCard: CardItemType[];
 }
 
 export default function BoardCard({ taskType, filteredCard }: Props) {
