@@ -29,13 +29,11 @@ export default function BoardCardItem({ item, index, handleDragging }: Props) {
 
   const handleDragStart = (e: React.DragEvent<HTMLLIElement>) => {
     e.dataTransfer.setData('data', item.id);
-
     setCardIndex(index);
     handleDragging(true);
   };
 
-  const handleDragEnter = (e: React.DragEvent<HTMLLIElement>) => {
-    console.log('enter', e);
+  const handleDragEnter = () => {
     setToCardIndex(index);
   };
 
