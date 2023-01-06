@@ -1,5 +1,6 @@
 import { useSetRecoilState } from 'recoil';
 import { v4 as uuidv4 } from 'uuid';
+import { useDragAndDrop } from '../hooks/useDragAndDrop';
 import { cardItemState } from '../recoil/cardItem';
 import { CardItemType } from '../types';
 import BoardCardItem from './BoardCardItem';
@@ -12,6 +13,7 @@ interface Props {
 
 export default function BoardCard({ taskType, filteredCard }: Props) {
   const setCard = useSetRecoilState(cardItemState);
+  const { handleUpdateList, handleDragging } = useDragAndDrop();
 
   const handleCreateCard = () => {
     setCard(prev => [
@@ -27,14 +29,31 @@ export default function BoardCard({ taskType, filteredCard }: Props) {
     ]);
   };
 
+  const handleDrop = (e: React.DragEvent<HTMLUListElement>) => {
+    e.preventDefault();
+    handleUpdateList(e.dataTransfer.getData('data'), taskType);
+    handleDragging(false);
+  };
+
+  const handleDragOver = (e: React.DragEvent<HTMLUListElement>) =>
+    e.preventDefault();
+
   return (
     <S.BoardCard>
       <p>{taskType}</p>
-      <S.BoardCardList>
+      <S.BoardCardList
+        onDrop={e => handleDrop(e)}
+        onDragOver={e => handleDragOver(e)}
+      >
         {filteredCard?.map(
-          (item: CardItemType) =>
+          (item: CardItemType, index: number) =>
             item.state === taskType && (
-              <BoardCardItem key={item.id} item={item} />
+              <BoardCardItem
+                key={item.id}
+                index={index}
+                item={item}
+                handleDragging={handleDragging}
+              />
             ),
         )}
       </S.BoardCardList>
