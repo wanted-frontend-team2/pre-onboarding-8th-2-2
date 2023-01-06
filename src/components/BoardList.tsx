@@ -4,7 +4,6 @@ import { cardItemState } from '../recoil/cardItem';
 import { detailIdState } from '../recoil/detail';
 import { TASK } from '../util/constants';
 import { BoardCard, BoardDetail } from './index';
-import * as S from './index.style';
 
 export default function BoardList() {
   const [filter, setFilter] = useState('');
@@ -27,28 +26,28 @@ export default function BoardList() {
   };
 
   return (
-    <S.BoardList>
-      <div>
-        <input
-          style={{ border: '1px solid rgba(0,0,0,0.8)' }}
-          onChange={(e: ChangeEvent<HTMLInputElement>) =>
-            setFilter(e.target.value)
-          }
-          value={filter}
-          placeholder="담당자 검색"
-        />
+    <div className="flex flex-col items-center px-10">
+      <input
+        className="text-lg w-96 font-medium text-gray-900 rounded-2xl py-1 px-3 border border-white focus:border-indigo-500 focus:outline-none focus:ring-indigo-500"
+        onChange={(e: ChangeEvent<HTMLInputElement>) =>
+          setFilter(e.target.value)
+        }
+        value={filter}
+        placeholder="담당자 검색"
+      />
+      <div className="flex flex-grow justify-center px-10 pb-5 pt-3 space-x-6">
+        {TASK?.map(item => (
+          <BoardCard
+            key={item.id}
+            taskType={item.task}
+            filteredCard={taskFilter(item.task)}
+          />
+        ))}
       </div>
-      {TASK?.map(item => (
-        <BoardCard
-          key={item.id}
-          taskType={item.task}
-          filteredCard={taskFilter(item.task)}
-        />
-      ))}
       {card.map(
         item =>
           item.id === detailShow && <BoardDetail key={item.id} item={item} />,
       )}
-    </S.BoardList>
+    </div>
   );
 }
