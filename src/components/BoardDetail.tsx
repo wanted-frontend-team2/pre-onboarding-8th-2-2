@@ -44,6 +44,11 @@ export default function BoardDetail({ item }: Props) {
 
   const handleDeleteCard = (itemId: string) => {
     setCard(card.filter(el => el.id !== itemId));
+
+    setIsRequest(true);
+    setTimeout(() => {
+      setIsRequest(false);
+    }, 500);
   };
 
   if (!id) return <div />;
@@ -124,6 +129,7 @@ export default function BoardDetail({ item }: Props) {
               </button>
               <button
                 type="button"
+                disabled={isRequest}
                 onClick={() => {
                   handleDeleteCard(id);
                 }}
