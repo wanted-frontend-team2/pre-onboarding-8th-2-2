@@ -23,6 +23,8 @@ export default function BoardDetail({ item }: Props) {
     content,
   });
 
+  const [isRequest, setIsRequest] = useState(false);
+
   const handleChangeValue = (e: any, k: string) => {
     setValue({ ...value, [k]: e.target.value });
   };
@@ -30,6 +32,12 @@ export default function BoardDetail({ item }: Props) {
   const handleSubmit = () => {
     const newCard = card.map(e => (e.id === id ? { id, ...value } : e));
     setCard(newCard);
+
+    setIsRequest(true);
+    setTimeout(() => {
+      setIsRequest(false);
+    }, 500);
+
     setDetailShow('');
   };
 
@@ -91,7 +99,7 @@ export default function BoardDetail({ item }: Props) {
           </div>
         </div>
         <div>
-          <button type="button" onClick={handleSubmit}>
+          <button type="button" disabled={isRequest} onClick={handleSubmit}>
             저장
           </button>
           <button type="button" onClick={() => setDetailShow('')}>
