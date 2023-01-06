@@ -26,8 +26,11 @@ export default function BoardDetail({ item }: Props) {
   });
   const [isRequest, setIsRequest] = useState(false);
   const [warning, setWarning] = useState(false);
+  let isNewCard = true;
 
-  if (id === '0') id = String(uuidv4());
+  if (id === '0') {
+    id = String(uuidv4());
+  }
 
   const handleChangeValue = (e: React.ChangeEvent<HTMLElement>, k: string) => {
     setValue({ ...value, [k]: (e.target as HTMLInputElement).value });
@@ -41,7 +44,6 @@ export default function BoardDetail({ item }: Props) {
     }
     setWarning(false);
 
-    let isNewCard = true;
     const newCard = card.map(el => {
       if (el.id === id) {
         isNewCard = false;
@@ -71,6 +73,8 @@ export default function BoardDetail({ item }: Props) {
 
   const handleDeleteCard = (itemId: string) => {
     setCard(card.filter(el => el.id !== itemId));
+
+    if (isNewCard) setDetailShow('');
 
     setIsRequest(true);
     setTimeout(() => {
