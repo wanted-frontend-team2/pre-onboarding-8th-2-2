@@ -24,7 +24,7 @@ export default function BoardCard({ taskType, filteredCard }: Props) {
 
   const handleDrop = (e: React.DragEvent<HTMLUListElement>) => {
     e.preventDefault();
-    handleUpdateList(e.dataTransfer.getData('data'), taskType);
+    handleUpdateList(e.dataTransfer.getData('data'), taskType, taskIndex);
     handleDragging(false);
   };
 
@@ -57,6 +57,7 @@ export default function BoardCard({ taskType, filteredCard }: Props) {
               <BoardCardItem
                 key={item.id}
                 index={index}
+                taskIndex={taskIndex}
                 item={item}
                 handleDragging={handleDragging}
               />

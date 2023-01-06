@@ -4,17 +4,25 @@ import { detailIdState } from '../recoil/detail';
 import { CardItemType } from '../types';
 import { fromCardIndex } from '../recoil/fromCardInex';
 import { toCardIndex } from '../recoil/toCardInex';
+import { boardIndex } from '../recoil/boardIndex';
 
 interface Props {
   item: CardItemType;
   index: number;
+  taskIndex: number;
   handleDragging: (dragging: boolean) => void;
 }
 
-export default function BoardCardItem({ item, index, handleDragging }: Props) {
-  const setCardIndex = useSetRecoilState(fromCardIndex);
+export default function BoardCardItem({
+  item,
+  index,
+  taskIndex,
+  handleDragging,
+}: Props) {
+  const setFromCardIndex = useSetRecoilState(fromCardIndex);
   const setToCardIndex = useSetRecoilState(toCardIndex);
   const setDetailShow = useSetRecoilState(detailIdState);
+  const setFromBoardIndex = useSetRecoilState(boardIndex);
 
   const handleDetailShow = (id: string) => {
     setDetailShow(id);
@@ -22,12 +30,13 @@ export default function BoardCardItem({ item, index, handleDragging }: Props) {
 
   const handleDragStart = (e: React.DragEvent<HTMLLIElement>) => {
     e.dataTransfer.setData('data', item.id);
-    setCardIndex(index);
+    setFromCardIndex(index);
     handleDragging(true);
   };
 
   const handleDragEnter = () => {
     setToCardIndex(index);
+    setFromBoardIndex(taskIndex);
   };
 
   const handleDragEnd = () => handleDragging(false);
