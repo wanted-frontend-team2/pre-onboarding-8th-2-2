@@ -4,7 +4,6 @@ import { cardItemState } from '../recoil/cardItem';
 import { detailIdState } from '../recoil/detail';
 import { TASK } from '../util/constants';
 import { BoardCard, BoardDetail } from './index';
-import * as S from './index.style';
 
 export default function BoardList() {
   const [filter, setFilter] = useState('');
@@ -27,7 +26,7 @@ export default function BoardList() {
   };
 
   return (
-    <S.BoardList>
+    <div>
       <div>
         <input
           style={{ border: '1px solid rgba(0,0,0,0.8)' }}
@@ -49,6 +48,6 @@ export default function BoardList() {
         item =>
           item.id === detailShow && <BoardDetail key={item.id} item={item} />,
       )}
-    </S.BoardList>
+    </div>
   );
 }

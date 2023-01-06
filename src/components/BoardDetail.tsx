@@ -4,7 +4,6 @@ import { cardItemState } from '../recoil/cardItem';
 import { detailIdState } from '../recoil/detail';
 import { CardItemType } from '../types';
 import { TASK } from '../util/constants';
-import * as S from './index.style';
 import SearchManager from './SearchManager';
 
 interface Props {
@@ -36,9 +35,9 @@ export default function BoardDetail({ item }: Props) {
 
   if (!id) return <div />;
   return (
-    <S.BoardDetail>
-      <S.BoardDetailInner>
-        <S.DetailForm>
+    <div>
+      <div>
+        <div>
           <div>
             제목:
             <input
@@ -90,7 +89,7 @@ export default function BoardDetail({ item }: Props) {
               }}
             />
           </div>
-        </S.DetailForm>
+        </div>
         <div>
           <button type="button" onClick={handleSubmit}>
             저장
@@ -99,7 +98,7 @@ export default function BoardDetail({ item }: Props) {
             닫기
           </button>
         </div>
-      </S.BoardDetailInner>
-    </S.BoardDetail>
+      </div>
+    </div>
   );
 }

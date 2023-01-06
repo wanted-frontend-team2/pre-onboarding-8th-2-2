@@ -4,7 +4,6 @@ import { useDragAndDrop } from '../hooks/useDragAndDrop';
 import { cardItemState } from '../recoil/cardItem';
 import { CardItemType } from '../types';
 import BoardCardItem from './BoardCardItem';
-import * as S from './index.style';
 
 interface Props {
   taskType: string;
@@ -39,12 +38,9 @@ export default function BoardCard({ taskType, filteredCard }: Props) {
     e.preventDefault();
 
   return (
-    <S.BoardCard>
+    <div>
       <p>{taskType}</p>
-      <S.BoardCardList
-        onDrop={e => handleDrop(e)}
-        onDragOver={e => handleDragOver(e)}
-      >
+      <ul onDrop={e => handleDrop(e)} onDragOver={e => handleDragOver(e)}>
         {filteredCard?.map(
           (item: CardItemType, index: number) =>
             item.state === taskType && (
@@ -56,8 +52,10 @@ export default function BoardCard({ taskType, filteredCard }: Props) {
               />
             ),
         )}
-      </S.BoardCardList>
-      <S.CreateBtn onClick={handleCreateCard}>+ 새로 만들기</S.CreateBtn>
-    </S.BoardCard>
+      </ul>
+      <button type="submit" onClick={handleCreateCard}>
+        + 새로 만들기
+      </button>
+    </div>
   );
 }

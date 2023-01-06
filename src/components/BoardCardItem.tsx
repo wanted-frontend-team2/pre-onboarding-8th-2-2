@@ -5,7 +5,6 @@ import { detailIdState } from '../recoil/detail';
 import { CardItemType } from '../types';
 import { fromCardIndex } from '../recoil/fromCardInex';
 import { toCardIndex } from '../recoil/toCardInex';
-import * as S from './index.style';
 
 interface Props {
   item: CardItemType;
@@ -40,7 +39,8 @@ export default function BoardCardItem({ item, index, handleDragging }: Props) {
   const handleDragEnd = () => handleDragging(false);
 
   return (
-    <S.CardItem
+    <li
+      role="presentation"
       onClick={() => {
         handleDetailShow(item.id);
       }}
@@ -50,7 +50,7 @@ export default function BoardCardItem({ item, index, handleDragging }: Props) {
       onDragEnd={handleDragEnd}
     >
       <div>{!item.title ? '제목없음' : item.title}</div>
-      <S.ModifyBtn>
+      <div>
         <button
           type="button"
           onClick={() => {
@@ -59,7 +59,7 @@ export default function BoardCardItem({ item, index, handleDragging }: Props) {
         >
           <HiOutlineTrash />
         </button>
-      </S.ModifyBtn>
-    </S.CardItem>
+      </div>
+    </li>
   );
 }
