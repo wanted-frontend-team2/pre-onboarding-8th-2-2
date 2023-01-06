@@ -51,7 +51,7 @@ export default function BoardCardItem({ item, index, handleDragging }: Props) {
         <div className="flex items-center">
           <HiCalendar />
           <span className="ml-1 text-xs leading-none">
-            {!item.date ? '날짜 없음' : item.date}
+            {!item.date ? '날짜 없음' : item.date.slice(0, 10)}
           </span>
         </div>
         <div className="flex items-center ml-auto">
