@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import { useState } from 'react';
 import { useRecoilState, useSetRecoilState } from 'recoil';
 import { HiX } from 'react-icons/hi';
@@ -60,7 +59,6 @@ export default function BoardDetail({ item }: Props) {
         manager: value.manager,
         content: value.manager,
       });
-    console.log(newCard);
     setCard(newCard);
 
     setIsRequest(true);
