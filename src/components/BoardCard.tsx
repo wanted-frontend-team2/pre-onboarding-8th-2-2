@@ -1,32 +1,25 @@
 import { useSetRecoilState } from 'recoil';
-import { v4 as uuidv4 } from 'uuid';
 import { HiPlus } from 'react-icons/hi';
 import { useDragAndDrop } from '../hooks/useDragAndDrop';
-import { cardItemState } from '../recoil/cardItem';
 import { CardItemType } from '../types';
 import BoardCardItem from './BoardCardItem';
+import { detailIdState } from '../recoil/detail';
 
 interface Props {
   taskType: string;
-  filteredCard: any;
+  filteredCard: CardItemType[];
 }
 
 export default function BoardCard({ taskType, filteredCard }: Props) {
-  const setCard = useSetRecoilState(cardItemState);
   const { handleUpdateList, handleDragging } = useDragAndDrop();
+  const setDetailShow = useSetRecoilState(detailIdState);
+
+  const handleDetailShow = (id: string) => {
+    setDetailShow(id);
+  };
 
   const handleCreateCard = () => {
-    setCard(prev => [
-      ...prev,
-      {
-        id: uuidv4(),
-        title: '',
-        date: '',
-        state: taskType,
-        manager: '',
-        content: '',
-      },
-    ]);
+    handleDetailShow(`new${taskType}`);
   };
 
   const handleDrop = (e: React.DragEvent<HTMLUListElement>) => {

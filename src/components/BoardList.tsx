@@ -9,7 +9,6 @@ export default function BoardList() {
   const [filter, setFilter] = useState('');
   const card = useRecoilValue(cardItemState);
   const detailShow = useRecoilValue(detailIdState);
-
   const filteredManagerCards = useMemo(
     () =>
       card.filter(items =>
@@ -47,6 +46,19 @@ export default function BoardList() {
       {card.map(
         item =>
           item.id === detailShow && <BoardDetail key={item.id} item={item} />,
+      )}
+      {detailShow.slice(0, 3) === 'new' && (
+        <BoardDetail
+          key={0}
+          item={{
+            id: '0',
+            title: '',
+            date: '',
+            state: detailShow.slice(3),
+            manager: '',
+            content: '',
+          }}
+        />
       )}
     </div>
   );
