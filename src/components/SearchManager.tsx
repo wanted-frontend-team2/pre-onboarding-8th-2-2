@@ -48,7 +48,7 @@ export default function SearchManager({ setValue, defaultManager }: Props) {
   };
 
   return (
-    <div className="inline-block">
+    <div className="inline-block relative">
       <input
         onChange={handleChange}
         required
@@ -68,7 +68,7 @@ export default function SearchManager({ setValue, defaultManager }: Props) {
         }}
         className={`${
           focused ? 'inline' : 'invisible'
-        }  absolute left-36 top-44 mt-2 w-56 origin-top-right divide-y divide-gray-100 rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none`}
+        }  absolute left-0 top-8 w-56 origin-top-right divide-y divide-gray-100 rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none`}
       >
         {filteredManagers.map(manager => (
           <li
