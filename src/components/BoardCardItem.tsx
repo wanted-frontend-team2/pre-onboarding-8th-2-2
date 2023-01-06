@@ -1,11 +1,9 @@
-import { HiOutlineTrash } from 'react-icons/hi';
-import { useRecoilState, useSetRecoilState } from 'recoil';
-import { cardItemState } from '../recoil/cardItem';
+import { useSetRecoilState } from 'recoil';
+import { HiCalendar, HiUser } from 'react-icons/hi';
 import { detailIdState } from '../recoil/detail';
 import { CardItemType } from '../types';
 import { fromCardIndex } from '../recoil/fromCardInex';
 import { toCardIndex } from '../recoil/toCardInex';
-import * as S from './index.style';
 
 interface Props {
   item: CardItemType;
@@ -14,17 +12,12 @@ interface Props {
 }
 
 export default function BoardCardItem({ item, index, handleDragging }: Props) {
-  const [card, setCard] = useRecoilState(cardItemState);
   const setCardIndex = useSetRecoilState(fromCardIndex);
   const setToCardIndex = useSetRecoilState(toCardIndex);
   const setDetailShow = useSetRecoilState(detailIdState);
 
   const handleDetailShow = (id: string) => {
     setDetailShow(id);
-  };
-
-  const handleDeleteCard = (id: string) => {
-    setCard(card.filter(el => el.id !== id));
   };
 
   const handleDragStart = (e: React.DragEvent<HTMLLIElement>) => {
@@ -40,7 +33,8 @@ export default function BoardCardItem({ item, index, handleDragging }: Props) {
   const handleDragEnd = () => handleDragging(false);
 
   return (
-    <S.CardItem
+    <li
+      role="presentation"
       onClick={() => {
         handleDetailShow(item.id);
       }}
@@ -48,18 +42,25 @@ export default function BoardCardItem({ item, index, handleDragging }: Props) {
       onDragStart={handleDragStart}
       onDragEnter={handleDragEnter}
       onDragEnd={handleDragEnd}
+      className="relative flex flex-col items-start p-4 mt-3 bg-white rounded-lg cursor-pointer bg-opacity-90 group hover:bg-opacity-100"
     >
-      <div>{!item.title ? '제목없음' : item.title}</div>
-      <S.ModifyBtn>
-        <button
-          type="button"
-          onClick={() => {
-            handleDeleteCard(item.id);
-          }}
-        >
-          <HiOutlineTrash />
-        </button>
-      </S.ModifyBtn>
-    </S.CardItem>
+      <h4 className="text-sm font-medium">
+        {!item.title ? '제목없음' : item.title}
+      </h4>
+      <div className="flex items-center w-full mt-3 font-medium text-gray-400">
+        <div className="flex items-center">
+          <HiCalendar />
+          <span className="ml-1 text-xs leading-none">
+            {!item.date ? '날짜 없음' : item.date}
+          </span>
+        </div>
+        <div className="flex items-center ml-auto">
+          <HiUser />
+          <span className="ml-1 text-xs leading-none">
+            {!item.manager ? '담당자 없음' : item.manager}
+          </span>
+        </div>
+      </div>
+    </li>
   );
 }

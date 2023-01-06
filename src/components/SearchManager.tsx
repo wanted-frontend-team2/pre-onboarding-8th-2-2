@@ -48,12 +48,8 @@ export default function SearchManager({ setValue, defaultManager }: Props) {
   };
 
   return (
-    <div
-      style={{ display: 'inline-block', position: 'relative', width: '180px' }}
-      className="w-[200px] inline relative z-10"
-    >
+    <div className="inline-block">
       <input
-        style={{ borderBottom: '0px' }}
         onChange={handleChange}
         required
         value={filter}
@@ -63,32 +59,23 @@ export default function SearchManager({ setValue, defaultManager }: Props) {
           setFocused(false);
         }}
         placeholder="담당자 검색"
-        className=" px-3 py-2 cursor-pointer   focus:cursor-text focus:border w-[200px] rounded focus:shadow-md mb-3"
         type="text"
+        className="w-40 font-light bg-gray-100 text-gray-900 rounded-lg border border-white py-1 px-2 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 text-sm"
       />
       <ul
         style={{
-          position: 'absolute',
-          width: '100%',
-          backgroundColor: 'white',
           visibility: focused ? 'visible' : 'hidden',
-          border: '1px solid rgba(0,0,0,0.7)',
-          borderRadius: '5px',
         }}
         className={`${
           focused ? 'inline' : 'invisible'
-        }  cursor-pointer absolute w-full bg-white border `}
+        }  absolute left-36 top-44 mt-2 w-56 origin-top-right divide-y divide-gray-100 rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none`}
       >
         {filteredManagers.map(manager => (
           <li
-            style={{
-              padding: '10px 15px',
-              cursor: 'pointer',
-            }}
             role="presentation"
             key={manager}
             onMouseDown={() => handleClick(manager)}
-            className="p-3 list-none hover:bg-sky-200"
+            className="cursor-pointer p-2 text-sm font-light list-none hover:bg-sky-200"
           >
             {manager}
           </li>
