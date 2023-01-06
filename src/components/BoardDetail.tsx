@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { useRecoilState, useSetRecoilState } from 'recoil';
 import { HiX } from 'react-icons/hi';
+import { v4 as uuidv4 } from 'uuid';
 import { cardItemState } from '../recoil/cardItem';
 import { detailIdState } from '../recoil/detail';
 import { CardItemType } from '../types';
@@ -12,10 +13,10 @@ interface Props {
 }
 
 export default function BoardDetail({ item }: Props) {
-  const { id, title, date, state, manager, content } = item;
+  const { title, date, state, manager, content } = item;
+  let { id } = item;
   const [card, setCard] = useRecoilState(cardItemState);
   const setDetailShow = useSetRecoilState(detailIdState);
-
   const [value, setValue] = useState({
     title,
     date,
@@ -23,15 +24,43 @@ export default function BoardDetail({ item }: Props) {
     manager,
     content,
   });
-
   const [isRequest, setIsRequest] = useState(false);
+  const [warning, setWarning] = useState(false);
+  let isNewCard = true;
 
-  const handleChangeValue = (e: any, k: string) => {
-    setValue({ ...value, [k]: e.target.value });
+  if (id === '0') {
+    id = String(uuidv4());
+  }
+
+  const handleChangeValue = (e: React.ChangeEvent<HTMLElement>, k: string) => {
+    setValue({ ...value, [k]: (e.target as HTMLInputElement).value });
   };
 
-  const handleSubmit = () => {
-    const newCard = card.map(e => (e.id === id ? { id, ...value } : e));
+  const handleSubmit = (e: React.MouseEvent) => {
+    e.preventDefault();
+    if (!value.title) {
+      setWarning(true);
+      return;
+    }
+    setWarning(false);
+
+    const newCard = card.map(el => {
+      if (el.id === id) {
+        isNewCard = false;
+        return { id, ...value };
+      }
+      return el;
+    });
+
+    if (isNewCard)
+      newCard.push({
+        id,
+        title: value.title,
+        date: value.date,
+        state: value.state,
+        manager: value.manager,
+        content: value.content,
+      });
     setCard(newCard);
 
     setIsRequest(true);
@@ -44,6 +73,8 @@ export default function BoardDetail({ item }: Props) {
 
   const handleDeleteCard = (itemId: string) => {
     setCard(card.filter(el => el.id !== itemId));
+
+    if (isNewCard) setDetailShow('');
 
     setIsRequest(true);
     setTimeout(() => {
@@ -71,7 +102,15 @@ export default function BoardDetail({ item }: Props) {
                 handleChangeValue(e, 'title');
               }}
               className="text-xl font-semibold w-11/12 bg-gray-100 text-gray-900 rounded-lg p-1 border border-white focus:border-indigo-500 focus:outline-none focus:ring-indigo-500"
+              required
             />
+            {warning ? (
+              <div className="text-sm text-red-600">
+                제목은 필수 입력값입니다.
+              </div>
+            ) : (
+              <div className="text-sm">&nbsp;&nbsp;</div>
+            )}
             <div className="pl-2">
               <span className="w-28 inline-block font-light text-gray-900 select-none">
                 마감일
@@ -116,17 +155,9 @@ export default function BoardDetail({ item }: Props) {
               onChange={e => {
                 handleChangeValue(e, 'content');
               }}
-              className="text-gray-900 bg-gray-100 rounded-lg py-1 px-2 w-full h-72 resize-none border border-white focus:border-indigo-500 focus:outline-none focus:ring-indigo-500"
+              className="text-gray-900 bg-gray-100 rounded-lg py-1 px-2 w-full h-[30vh] resize-none border border-white focus:border-indigo-500 focus:outline-none focus:ring-indigo-500"
             />
             <div className="flex justify-between">
-              <button
-                type="submit"
-                disabled={isRequest}
-                onClick={handleSubmit}
-                className="rounded-lg border border-transparent bg-blue-700 py-2 px-4 ml-1 text-sm font-medium text-white shadow-sm hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300"
-              >
-                Save
-              </button>
               <button
                 type="button"
                 disabled={isRequest}
@@ -136,6 +167,14 @@ export default function BoardDetail({ item }: Props) {
                 className="rounded-lg border border-transparent bg-red-600 py-2 px-4 ml-1 text-sm font-medium text-white shadow-sm hover:bg-red-700 focus:outline-none focus:ring-4 focus:ring-red-200"
               >
                 Delete
+              </button>
+              <button
+                type="submit"
+                disabled={isRequest}
+                onClick={handleSubmit}
+                className="rounded-lg border border-transparent bg-blue-700 py-2 px-4 ml-1 text-sm font-medium text-white shadow-sm hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300"
+              >
+                Save
               </button>
             </div>
           </form>
