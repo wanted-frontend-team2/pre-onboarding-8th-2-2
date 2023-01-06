@@ -1,4 +1,4 @@
-import { CardItemType } from '../types';
+import { CardItemType } from '../types/index.d';
 
 export const localStorageEffect =
   (key: string) =>
@@ -6,7 +6,7 @@ export const localStorageEffect =
     setSelf,
     onSet,
   }: {
-    setSelf: (param: CardItemType[]) => void;
+    setSelf: (args: CardItemType[]) => void;
     onSet: (
       param: (
         newValue: CardItemType[],
@@ -19,7 +19,7 @@ export const localStorageEffect =
     if (savedValue != null) {
       setSelf(JSON.parse(savedValue));
     }
-    onSet((newValue: CardItemType[], isReset: boolean): void =>
+    onSet((newValue: CardItemType[], _: any, isReset: boolean) =>
       isReset
         ? localStorage.removeItem(key)
         : localStorage.setItem(key, JSON.stringify(newValue)),
