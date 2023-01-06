@@ -44,9 +44,7 @@ export default function BoardCardItem({ item, index, handleDragging }: Props) {
       onDragEnd={handleDragEnd}
       className="relative flex flex-col items-start p-4 mt-3 bg-white rounded-lg cursor-pointer bg-opacity-90 group hover:bg-opacity-100"
     >
-      <h4 className="text-sm font-medium">
-        {!item.title ? '제목없음' : item.title}
-      </h4>
+      <h4 className="text-sm font-medium">{item.title}</h4>
       <div className="flex items-center w-full mt-3 font-medium text-gray-400">
         <div className="flex items-center">
           <HiCalendar />
